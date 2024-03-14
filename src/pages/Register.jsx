@@ -21,13 +21,18 @@ const Register = () => {
       if (username == "" || password == "" || confirmPassword == "") {
          console.log("data tidak boleh kosong");
       } else {
-         const account = {
-            username,
-            password,
-            confirmPassword,
-         };
-         localStorage.setItem("akun", JSON.stringify(account));
-         navigate("/login");
+         if (password == confirmPassword) {
+            const account = {
+               username,
+               password,
+               confirmPassword,
+               status: true,
+            };
+            localStorage.setItem("akun", JSON.stringify(account));
+            navigate("/login");
+         } else {
+            console.log("password dan confirm password harus sama");
+         }
       }
    };
 

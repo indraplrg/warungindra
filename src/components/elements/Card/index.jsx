@@ -32,11 +32,29 @@ export const CardBody = (props) => {
    );
 };
 
-export const CardFooter = () => {
+export const CardFooter = (props) => {
+   const { onClick, id } = props;
    return (
-      <div className="flex  gap-3 py-2">
-         <button type="submit">Beli</button>
-         <button type="submit"> Tambah ke kereta</button>
+      <div className="flex gap-3 py-2 ">
+         <button
+            type="submit"
+            className="bg-custom-tertiary text-white px-2 box-border rounded-sm"
+            onClick={() => {
+               onClick.buy(id);
+            }}
+         >
+            Beli
+         </button>
+         <button
+            type="submit"
+            className="bg-yellow-500 text-white px-2 box-border rounded-sm"
+            onClick={() => {
+               onClick.cart(id);
+            }}
+         >
+            {" "}
+            Tambah ke kereta
+         </button>
       </div>
    );
 };

@@ -20,12 +20,15 @@ const Login = () => {
       if (username == "" || password == "") {
          console.log("data tidak boleh kosong");
       } else {
-         const account = localStorage.getItem("akun");
-         const parseAccount = JSON.parse(account);
+         const localAkun = localStorage.getItem("akun");
+         const localAkunParse = JSON.parse(localAkun);
          if (
-            username == parseAccount.username &&
-            password == parseAccount.password
+            username == localAkunParse.username &&
+            password == localAkunParse.password
          ) {
+            const akun = { ...localAkunParse, status: true };
+            localStorage.clear();
+            localStorage.setItem("akun", JSON.stringify(akun));
             navigate("/");
          } else {
             console.log("katasandi atau username yang anda masukan salah");

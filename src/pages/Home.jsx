@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
    Card,
    CardBody,
@@ -11,28 +11,44 @@ import { useNavigate } from "react-router";
 
 const Home = () => {
    const navigate = useNavigate();
+   const [account, setAccount] = useState(null);
 
    useEffect(() => {
       const akun = localStorage.getItem("akun");
       const akunParse = JSON.parse(akun);
-      if (!akunParse) {
+      setAccount(akunParse);
+   }, []);
+
+   const handleBuy = (id) => {
+      if (account?.status == true) {
+         navigate(`/buy/${id}`);
+      } else {
          navigate("/login");
       }
-   }, []);
+   };
+
+   const handleAddToCart = (id) => {
+      if (account?.status == true) {
+         navigate(`/buy/${id}`);
+      } else {
+         navigate("/login");
+      }
+   };
 
    return (
       <>
-         <HeroSection />
-         <ProductSection />
+         <HeroSection account={account} />
+         <ProductSection onClick={{ buy: handleBuy, cart: handleAddToCart }} />
       </>
    );
 };
 
-const HeroSection = () => {
+const HeroSection = (props) => {
+   const { account } = props;
    return (
       <section>
          <div className="h-[30rem] bg-custom-tertiary text-black">
-            <Navbar />
+            <Navbar account={account} />
             <div className="h-2/3 flex justify-around px-32 items-center">
                <div className="text-white">
                   <h1 className="text-3xl font-semibold">
@@ -61,7 +77,8 @@ const HeroSection = () => {
    );
 };
 
-const ProductSection = () => {
+const ProductSection = (props) => {
+   const { onClick } = props;
    return (
       <section className="p-10">
          <h1 className="text-xl text-custom-tertiary font-semibold mb-4">
@@ -74,7 +91,7 @@ const ProductSection = () => {
                      <Card>
                         <CardHeader src={data.src} alt={data.name} />
                         <CardBody title={data.name} price={data.price} />
-                        <CardFooter />
+                        <CardFooter id={data.id} onClick={onClick} />
                      </Card>
                   </div>
                );

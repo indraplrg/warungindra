@@ -8,6 +8,7 @@ import Vegetable from "./pages/Vegetable";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Umbi from "./pages/Umbi";
+import Buy from "./pages/Buy";
 ReactDOM.createRoot(document.getElementById("root")).render(
    <React.StrictMode>
       <BrowserRouter>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/umbi" element={<Umbi />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/buy/:id" element={<Buy />} />
          </Routes>
       </BrowserRouter>
    </React.StrictMode>
